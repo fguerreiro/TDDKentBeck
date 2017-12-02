@@ -69,32 +69,6 @@ namespace TddKentBeckTests
             Assert.Equal("USD", Money.Dollar(1).Currency);
             Assert.Equal("CHF", Money.Franc(1).Currency);
         }
-        
-        // Triangulation
-
-
-        /*
-            Requirements:
-            1) $5 + 10 CHF = $10 if rate is 2:1
-            xx 2) $5 * 2 = 10$ (OK)
-            xx 3) Make amount private
-            xx 4) Dollar side effects ?
-            5) Money rounding ?
-            xx 6) Value Object: equals
-            7) HashCode
-            8) Null equals
-            9) Equals obj
-            xx 10) 5 CHF * 2 = 10 CHF
-            xx11) Common Equals
-            12) Common times 
-            
-            Dollar/Franc duplication
-            Delete testFrancMultiplication ?
-            
-            xx13) Compare francs with dollars
-            
-            
-        */
 
         [Fact]
         public void TestSimpleAddition()
@@ -184,5 +158,14 @@ namespace TddKentBeckTests
 
             Assert.Equal(Money.Dollar(15), result);
         }
+        
+        /*
+            Requirements:
+            
+            Return Money from $5 + $5
+            Expression.Times
+        */
+        
+        
     }
 }
