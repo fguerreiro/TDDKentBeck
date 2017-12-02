@@ -31,13 +31,13 @@ namespace TddKentBeckTests
             return new Franc(amount, "CHF");
         }
 
-        public Money Times(int times)
+        public IMoneyExpression Times(int times)
         {
             return new Money(Amount * times, Currency);
         }
         
         
-        public IMoneyExpression Plus(Money addend)
+        public IMoneyExpression Plus(IMoneyExpression addend)
         {
             return new Sum(this, addend);
         }

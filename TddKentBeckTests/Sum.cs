@@ -4,10 +4,10 @@ namespace TddKentBeckTests
 {
     public class Sum : IMoneyExpression
     {
-        public Money Augend { get; set; }
-        public Money Addend { get; set; }
+        public IMoneyExpression Augend { get; set; }
+        public IMoneyExpression Addend { get; set; }
 
-        public Sum(Money augend, Money addend)
+        public Sum(IMoneyExpression augend, IMoneyExpression addend)
         {
             Augend = augend;
             Addend = addend;
@@ -15,14 +15,16 @@ namespace TddKentBeckTests
 
         public Money Reduce(Bank bank, String to)
         {
-            int amount = Augend.Amount + Addend.Amount;
+            int amount =
+                Augend.Reduce(bank, to).Amount
+                + Addend.Reduce(bank, to).Amount;
+            
             return new Money(amount, to);
         }
-        
-        public IMoneyExpression Plus(Money addend)
+       
+        public IMoneyExpression Plus(IMoneyExpression addend)
         {
-            throw new NotImplementedException();
+            return new Sum(this, addend);
         }
-        
     }
 }

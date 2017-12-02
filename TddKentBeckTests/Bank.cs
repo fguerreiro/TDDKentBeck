@@ -5,7 +5,6 @@ namespace TddKentBeckTests
 {
     public class Bank
     {
-
         public Dictionary<Pair, int> Rates { get; set; }
             = new Dictionary<Pair, int>();
         
@@ -25,6 +24,5 @@ namespace TddKentBeckTests
         {
             Rates.Add(new Pair(from, to), rate);
         }
-
     }
 }

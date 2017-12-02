@@ -5,9 +5,8 @@ using Xunit;
 
 namespace TddKentBeckTests
 {
-    public class UnitTest1
+    public class MoneyTests
     {
-       
         [Fact]
         public void TestMultiplication()
         {
@@ -160,35 +159,30 @@ namespace TddKentBeckTests
         [Fact]
         public void TestMixedAddition()
         {
-            Money fiveBucks = Money.Dollar(5);
-            Money tenFrancs = Money.Franc(10);
+            IMoneyExpression fiveBucks = Money.Dollar(5);
+            IMoneyExpression tenFrancs = Money.Franc(10);
             Bank bank = new Bank();
             bank.AddRate("CHF", "USD", 2);
             Money result = bank.Reduce(fiveBucks.Plus(tenFrancs), "USD");
             
             Assert.Equal(Money.Dollar(10), result);
         }
-    }
 
-    public class Pair
-    {
-        public String To { get; set; }
-        public String From { get; set; }
-
-        public Pair(string from, string to)
+        [Fact]
+        public void TestSumPlusMoney()
         {
-            From = @from;
-            To = to;
-        }
+            IMoneyExpression fiveBucks = Money.Dollar(5);
+            IMoneyExpression tenFrancs = Money.Franc(10);
+            
+            Bank bank = new Bank();
+            bank.AddRate("CHF", "USD", 2);
+            
+            IMoneyExpression sum = 
+                new Sum(fiveBucks, tenFrancs).Plus(fiveBucks);
 
-        public override bool Equals(object other)
-        {
-            return From == ((Pair)other).From && To == ((Pair)other).To;
-        }
+            Money result = bank.Reduce(sum, "USD");
 
-        public override int GetHashCode()
-        {
-            return 0;
+            Assert.Equal(Money.Dollar(15), result);
         }
     }
 }

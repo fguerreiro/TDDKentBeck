@@ -4,7 +4,7 @@ namespace TddKentBeckTests
 {
     public interface IMoneyExpression
     {
-        IMoneyExpression Plus(Money addend);
+        IMoneyExpression Plus(IMoneyExpression addend);
         Money Reduce(Bank bank, String to);
     }
 }
