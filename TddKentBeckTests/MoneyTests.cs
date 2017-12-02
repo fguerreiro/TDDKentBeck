@@ -159,13 +159,22 @@ namespace TddKentBeckTests
             Assert.Equal(Money.Dollar(15), result);
         }
         
-        /*
-            Requirements:
+        [Fact]
+        public void TestSumTimes()
+        {
+            IMoneyExpression fiveBucks = Money.Dollar(5);
+            IMoneyExpression tenFrancs = Money.Franc(10);
+
+            Bank bank = new Bank();
+            bank.AddRate("CHF", "USD", 2);
             
-            Return Money from $5 + $5
-            Expression.Times
-        */
-        
-        
+            IMoneyExpression sum = 
+                new Sum(fiveBucks, tenFrancs)
+                    .Times(2);
+
+            Money result = bank.Reduce(sum, "USD");
+            
+            Assert.Equal(Money.Dollar(20), result);
+        }
     }
 }

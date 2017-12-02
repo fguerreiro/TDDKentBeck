@@ -26,5 +26,10 @@ namespace TddKentBeckTests
         {
             return new Sum(this, addend);
         }
+
+        public IMoneyExpression Times(int multiplier)
+        {
+            return new Sum(Augend.Times(multiplier), Addend.Times(multiplier));
+        }
     }
 }

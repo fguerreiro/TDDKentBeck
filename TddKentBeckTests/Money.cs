@@ -31,9 +31,9 @@ namespace TddKentBeckTests
             return new Franc(amount, "CHF");
         }
 
-        public IMoneyExpression Times(int times)
+        public IMoneyExpression Times(int multiplier)
         {
-            return new Money(Amount * times, Currency);
+            return new Money(Amount * multiplier, Currency);
         }
         
         
