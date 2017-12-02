@@ -1,22 +1,57 @@
+using System;
+
 namespace TddKentBeckTests
 {
-    public class Money
-    {
-        public Money(int v)
+    public class Money : IMoneyExpression
+    {   
+        public int Amount { get; private set; }
+        
+        public Money(int v, string currency)
         {
             this.Amount = v;
+            Currency = currency;
         }
 
-        public int Amount { get; private set; }
+        public String Currency { get; set; }
 
-        public Dollar Times(int times)
-        {
-            return new Dollar(Amount * times);
-        }
-
+        
         public override bool Equals(object obj)
         {
-            return Amount == ((Dollar)obj).Amount;
+            var money = (Money) obj;
+            return Amount == money.Amount && Currency == money.Currency;
+        }
+
+        public static Dollar Dollar(int amount)
+        {
+            return new Dollar(amount, "USD");
+        }
+        
+        public static Franc Franc(int amount)
+        {
+            return new Franc(amount, "CHF");
+        }
+
+        public Money Times(int times)
+        {
+            return new Money(Amount * times, Currency);
+        }
+        
+        
+        public IMoneyExpression Plus(Money addend)
+        {
+            return new Sum(this, addend);
+        }
+
+        public Money Reduce(Bank bank, string to)
+        {
+            int rate = bank.Rate(Currency, to);
+            
+            return new Money(Amount / rate, to);
+        }
+
+        public override string ToString()
+        {
+            return $"{Amount} {Currency}";
         }
     }
 }
